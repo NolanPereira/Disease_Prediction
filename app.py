@@ -11,12 +11,21 @@ Model = joblib.load("Model.pkl")
 sol = pd.read_csv('solution.csv')
 
 # Create Streamlit web-page
-st.title("Disease Prediction")
 
-# Create a MultiSelect Dropdown Button
-Selected_Symptoms = st.multiselect(
-    'What Symptoms are you facing (Please do not select more then 17 Symptoms)',
-    Symptoms)
+col1, col2 = st.columns([1, 3])
+
+with col1:
+   st.image(
+       "https://static.vecteezy.com/system/resources/previews/005/097/848/non_2x/a-female-doctor-cartoon-character-on-white-background-free-vector.jpg")
+
+with col2:
+    st.header("Hi! How are you feeling today? ")
+    st.subheader("What health concerns are you having?")
+    # Create a MultiSelect Dropdown Button
+    Selected_Symptoms = st.multiselect(
+        'Please do not select more then 17 Symptoms',
+        Symptoms)
+
 
 # Transform input from Dropdown
 add = []
@@ -67,7 +76,7 @@ def p4(Model_Output):
         if sol['Disease'][i] == Model_Output:
             return sol['Precaution_4'][i]
 
-
+# Create a Submit Button
 if st.button('Submit'):
     st.write(Model_Output)
     st.write(description(Model_Output))
